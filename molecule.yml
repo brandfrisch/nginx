@@ -1,0 +1,17 @@
+---
+dependency:
+  name: galaxy
+
+docker:
+  containers:
+    - name: nginx-ubuntu-16-04
+      image: brandfrisch/ubuntu-16.04
+      image_version: 'latest'
+      command: /lib/systemd/systemd
+      privileged: true
+    - name: nginx-centos-6-9
+      image: brandfrisch/centos-6
+      image_version: latest
+
+verifier:
+  name: goss

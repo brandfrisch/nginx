@@ -1,0 +1,16 @@
+---
+# defaults file for nginx
+
+nginx_config_file: nginx.conf.j2
+nginx_packages:
+  - nginx
+nginx_additional_packages: []
+
+nginx_sites: []
+nginx_sites_enabled: []
+nginx_diffie_hellmann_length: 4096
+
+nginx_address: 0.0.0.0
+nginx_ports:
+  - 80
+  - 443

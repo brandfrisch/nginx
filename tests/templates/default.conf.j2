@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+
+server {
+    listen       80;
+    server_name  localhost;
+
+    error_log syslog:server=unix:/dev/log,nohostname,facility=local0,tag=nginx_default_error,severity=error;
+    access_log syslog:server=unix:/dev/log,nohostname,facility=local0,tag=nginx_default_access,severity=info main;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    error_page      404              /404.html;
+    error_page      500 502 503 504  /50x.html;
+
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+}
