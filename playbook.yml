@@ -5,7 +5,5 @@
       - default.conf
     nginx_sites:
       - tests/templates/default.conf.j2
-    nginx_diffie_hellmann_length:
-      - 256
   roles:
     - role: nginx

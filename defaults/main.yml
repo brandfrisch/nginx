@@ -8,7 +8,6 @@ nginx_additional_packages: []
 
 nginx_sites: []
 nginx_sites_enabled: []
-nginx_diffie_hellmann_length: 1024
 
 nginx_address: 0.0.0.0
 nginx_ports:

@@ -1,4 +1,4 @@
-nginx [![Build Status](https://travis-ci.org/brandfrisch/nginx.svg?branch=master)](https://travis-ci.org/brandfrisch/nginx)
+nginx
 =========
 
 This is a rule to setup nginx on a unix system

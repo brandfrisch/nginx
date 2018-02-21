@@ -1,11 +1,31 @@
 ---
 # tasks file for nginx
 
-- name: set distro-specific variables
-  include_vars: "{{ ansible_os_family | lower }}.yml"
-  ignore_errors: true
+- name: Add Nginx APT repository key
+  apt_key:
+    url: 'http://nginx.org/keys/nginx_signing.key'
+    state: present
+  register: nginx_apt_key
+  tags:
+    - setup
+    - nginx
 
-- include: "{{ ansible_os_family | lower }}_setup.yml"
+- name: Update keyring
+  when: nginx_apt_key.changed
+  command: "apt-key update"
+  tags:
+    - setup
+    - nginx
+    - skip_ansible_lint
+
+- name: Add Nginx APT repository
+  apt_repository:
+    repo: 'deb http://nginx.org/packages/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release | lower }} nginx'
+    update_cache: yes
+    state: present
+  tags:
+    - setup
+    - nginx
 
 - name: Install Nginx Packages
   package:
@@ -18,7 +38,6 @@
     - nginx
 
 - name: Manage user accounts
-  when: ansible_os_family == 'Debian'
   user:
     name: nginx
     groups: www-data
@@ -37,17 +56,6 @@
   tags:
     - setup
     - nginx
-
-- name: Generating Diffie-Hellmann pems
-  shell: "openssl gendh -out /etc/nginx/dh_{{ item }}.pem -2 {{ item }}"
-  args:
-    creates: "/etc/nginx/dh_{{ item }}.pem"
-  with_items:
-    - "{{ nginx_diffie_hellmann_length }}"
-  tags:
-    - config
-    - nginx
-    - skip_ansible_lint
 
 - name: Create sites folders
   file:

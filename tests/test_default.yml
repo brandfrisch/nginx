@@ -2,12 +2,34 @@
 
 - hosts: all
   gather_facts: true
-
-  pre_tasks:
-
-    - name: set distro-specific variables
-      include_vars: "{{ ansible_os_family | lower }}.yml"
-      ignore_errors: true
+  vars:
+    goss:
+      package:
+        nginx:
+          installed: true
+      port:
+        tcp:80:
+          listening: true
+          ip:
+          - 0.0.0.0
+      service:
+        nginx:
+          enabled: true
+          running: true
+      user:
+        nginx:
+          exists: true
+          groups:
+          - nginx
+          - www-data
+          home: /nonexistent
+          shell: /bin/false
+      group:
+        nginx:
+          exists: true
+      process:
+        nginx:
+          running: true
 
   post_tasks:
 
