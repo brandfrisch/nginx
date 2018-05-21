@@ -103,7 +103,6 @@
   template:
     src: "{{ nginx_config_file }}"
     dest: "/etc/nginx/nginx.conf"
-    validate: "nginx -t -c %s"
     owner: root
     group: root
     mode: 0644
