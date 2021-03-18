@@ -21,6 +21,7 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for" "$request_time"';
 
+    client_max_body_size        10M;
     charset                     utf-8;
     disable_symlinks            off;
     gzip                        on;
